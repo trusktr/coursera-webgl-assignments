@@ -1,4 +1,4 @@
-let numTimesToSubdivide = new ReactiveVar(7);
+let numTimesToSubdivide = new ReactiveVar(5);
 let degrees = new ReactiveVar(45)
 
 Template.hwk1Controls.events({
@@ -57,9 +57,9 @@ Template.hwk1WebGL.onRendered(()=>{
 
     let points = [];
     let vertices = [
-        vec2( -1, -1 ),
-        vec2(  0,  1 ),
-        vec2(  1, -1 )
+        vec2( -0.5, -0.5 ),
+        vec2(  0,  0.5 ),
+        vec2(  0.5, -0.5 )
     ];
 
     // Load the data into the GPU
