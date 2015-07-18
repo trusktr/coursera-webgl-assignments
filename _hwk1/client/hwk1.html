@@ -4,7 +4,19 @@
         attribute vec4 vPosition;
 
         void main() {
-            gl_Position = vPosition;
+            float PI = 3.14159265358979323846264;
+            float angle = PI/3.0;
+
+            vec4 a = vPosition;
+            vec4 b = a;
+
+            float distance = sqrt( pow(a.x, 2.0) + pow(a.y, 2.0) );
+
+            b.x = a.x*cos(distance*angle) - a.y*sin(distance*angle);
+            b.y = a.x*sin(distance*angle) + a.y*cos(distance*angle);
+
+            gl_Position = b;
+            //gl_Position = vPosition;
         }
     </script>
 

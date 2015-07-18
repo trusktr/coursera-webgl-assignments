@@ -41,7 +41,7 @@ Template.hwk1.onRendered(()=>{
     // First, initialize the corners of our gasket with three points.
 
     let points = [];
-    let NumTimesToSubdivide = 5;
+    let NumTimesToSubdivide = 7;
     let vertices = [
         vec2( -1, -1 ),
         vec2(  0,  1 ),
