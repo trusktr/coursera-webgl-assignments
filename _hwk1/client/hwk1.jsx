@@ -4,12 +4,16 @@ let degrees = new ReactiveVar(45)
 Template.hwk1Controls.events({
     'change .tessel, submit form, keypress .tessel': _.debounce(function(event, instance) {
         event.preventDefault()
-        numTimesToSubdivide.set(parseFloat(instance.$('.tessel').val()))
+        let newValue = parseInt(instance.$('.tessel').val())
+        if (Match.test(newValue, Match.Integer))
+            numTimesToSubdivide.set(newValue)
     }, 1000),
 
     'change .angle, submit form, keypress .angle': _.debounce(function(event, instance) {
         event.preventDefault()
-        degrees.set(parseFloat(instance.$('.angle').val()))
+        let newValue = parseFloat(instance.$('.angle').val())
+        if (Match.test(newValue, Number))
+            degrees.set(newValue)
     }, 1000)
 })
 
