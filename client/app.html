@@ -6,13 +6,23 @@
         {{! Node with "20px margin": }}
         {{#Node size="relative:1,-40; relative:1,0" align="[0.5,0]" mountPoint="[0.5,0]"}}
 
-            {{#Node size="relative:1,0; absolute: 80"}}
+            {{#Node id="header" size="relative:1,0; absolute: 80"}}
                 {{#DOMElement}}
                     <h1>Joe Pea's WebGL Assignments.</h1>
                 {{/DOMElement}}
             {{/Node}}
 
-            {{>content}}
+            {{#Node id="sidebar" size="A:150; R:1,-80" position="[0,80]"}}
+                {{#DOMElement}}
+                    <ul>
+                        <li> <a href="/hwk1">Assignment 1</a> </li>
+                    </ul>
+                {{/DOMElement}}
+            {{/Node}}
+
+            {{#Node id="content" size="R:1,-150; R:1,-80" position="[150,80]"}}
+                {{> Template.dynamic template=contentTemplate}}
+            {{/Node}}
 
         {{/Node}}
 
@@ -20,17 +30,4 @@
 </body>
 
 <template name="home">
-    {{#Node}}
-        {{#DOMElement}}
-            <ul>
-                <li> <a href="/hwk1">Assignment 1</a> </li>
-            </ul>
-        {{/DOMElement}}
-    {{/Node}}
-</template>
-
-<template name="content">
-    {{#Node id="content" size="R:1,0; R:1,-80" position="[0,80]"}}
-        {{> Template.dynamic template=contentTemplate}}
-    {{/Node}}
 </template>
