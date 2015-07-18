@@ -1,0 +1,34 @@
+<head></head>
+
+<body>
+    {{#Scene id="scene"}}
+
+        {{! Node with "20px margin": }}
+        {{#Node size="relative:1,-40; relative:1,0" align="[0.5,0]" mountPoint="[0.5,0]"}}
+
+            {{#Node size="relative:1,0; absolute: 80"}}
+                {{#DOMElement}}
+                    <h1>Joe Pea's WebGL Assignments.</h1>
+                {{/DOMElement}}
+            {{/Node}}
+
+            {{>content}}
+
+        {{/Node}}
+
+    {{/Scene}}
+</body>
+
+<template name="home">
+    <ul>
+        <li> <a href="/hwk1">Assignment 1</a> </li>
+    </ul>
+</template>
+
+<template name="content">
+    {{#Node id="contentNode" size="R:1,0; R:1,-80" position="[0,80]"}}
+        {{#DOMElement}}
+            {{> Template.dynamic template=contentTemplate}}
+        {{/DOMElement}}
+    {{/Node}}
+</template>
