@@ -20,15 +20,17 @@
 </body>
 
 <template name="home">
-    <ul>
-        <li> <a href="/hwk1">Assignment 1</a> </li>
-    </ul>
+    {{#Node}}
+        {{#DOMElement}}
+            <ul>
+                <li> <a href="/hwk1">Assignment 1</a> </li>
+            </ul>
+        {{/DOMElement}}
+    {{/Node}}
 </template>
 
 <template name="content">
-    {{#Node id="contentNode" size="R:1,0; R:1,-80" position="[0,80]"}}
-        {{#DOMElement}}
-            {{> Template.dynamic template=contentTemplate}}
-        {{/DOMElement}}
+    {{#Node id="content" size="R:1,0; R:1,-80" position="[0,80]"}}
+        {{> Template.dynamic template=contentTemplate}}
     {{/Node}}
 </template>

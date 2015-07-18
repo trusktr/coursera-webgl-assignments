@@ -1,22 +1,45 @@
 
 <template name="hwk1">
+    {{#Node size="A:175; P:1" }}
+        {{#DOMElement}}
+            {{>hwk1Controls}}
+        {{/DOMElement}}
+    {{/Node}}
+    {{#Node size="R:1,-175; P:1" position="[175,0]" }}
+        {{#DOMElement}}
+            {{>hwk1WebGL}}
+        {{/DOMElement}}
+    {{/Node}}
+</template>
+
+<template name="hwk1Controls">
+    <form>
+        <label>Number of subdivisions:</label>
+        <input class="tessel" type="text" value="7" />
+        <br /><br />
+        <label>Angle of twist (degrees):</label>
+        <input class="angle" type="text" value="45" />
+    </form>
+</template>
+
+<template name="hwk1WebGL">
     <script id="vertex-shader" type="x-shader/x-vertex">
         attribute vec4 vPosition;
+        uniform float degrees;
 
         void main() {
             float PI = 3.14159265358979323846264;
-            float angle = PI/3.0;
+            float radians = degrees/180.0 * PI;
 
             vec4 a = vPosition;
             vec4 b = a;
 
             float distance = sqrt( pow(a.x, 2.0) + pow(a.y, 2.0) );
 
-            b.x = a.x*cos(distance*angle) - a.y*sin(distance*angle);
-            b.y = a.x*sin(distance*angle) + a.y*cos(distance*angle);
+            b.x = a.x*cos(distance*radians) - a.y*sin(distance*radians);
+            b.y = a.x*sin(distance*radians) + a.y*cos(distance*radians);
 
             gl_Position = b;
-            //gl_Position = vPosition;
         }
     </script>
 

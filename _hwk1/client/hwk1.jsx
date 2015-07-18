@@ -1,5 +1,19 @@
+let numTimesToSubdivide = new ReactiveVar(7);
+let degrees = new ReactiveVar(45)
 
-Template.hwk1.onRendered(()=>{
+Template.hwk1Controls.events({
+    'change .tessel, submit form, keypress .tessel': _.debounce(function(event, instance) {
+        event.preventDefault()
+        numTimesToSubdivide.set(parseFloat(instance.$('.tessel').val()))
+    }, 1000),
+
+    'change .angle, submit form, keypress .angle': _.debounce(function(event, instance) {
+        event.preventDefault()
+        degrees.set(parseFloat(instance.$('.angle').val()))
+    }, 1000)
+})
+
+Template.hwk1WebGL.onRendered(()=>{
 
     let canvas = document.getElementById( "gl-canvas" );
 
@@ -41,20 +55,16 @@ Template.hwk1.onRendered(()=>{
     // First, initialize the corners of our gasket with three points.
 
     let points = [];
-    let NumTimesToSubdivide = 7;
     let vertices = [
         vec2( -1, -1 ),
         vec2(  0,  1 ),
         vec2(  1, -1 )
     ];
 
-    divideTriangle( vertices[0], vertices[1], vertices[2], NumTimesToSubdivide);
-
     // Load the data into the GPU
 
     var bufferId = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(points), gl.STATIC_DRAW );
 
     // Associate out shader variables with our data buffer
 
@@ -62,7 +72,19 @@ Template.hwk1.onRendered(()=>{
     gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
 
-    render();
+    Tracker.autorun(function() {
+        console.log('change tessel')
+        points = []
+        divideTriangle( vertices[0], vertices[1], vertices[2], numTimesToSubdivide.get());
+        gl.bufferData( gl.ARRAY_BUFFER, flatten(points), gl.STATIC_DRAW );
+        render();
+    })
+
+    Tracker.autorun(function() {
+        console.log('change angle')
+        gl.uniform1f(gl.getUniformLocation( program, "degrees" ), degrees.get())
+        render();
+    })
 
     function render() {
         gl.clear( gl.COLOR_BUFFER_BIT );
