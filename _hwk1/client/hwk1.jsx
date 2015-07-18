@@ -20,9 +20,6 @@ Template.hwk1WebGL.onRendered(()=>{
     let gl = WebGLUtils.setupWebGL( canvas );
     if ( !gl ) { throw new Error( "WebGL isn't available" ); }
 
-    canvas.style.width = '100%'
-    canvas.style.height = '100%'
-
     canvas.width = canvas.clientWidth * window.devicePixelRatio
     canvas.height = canvas.clientHeight * window.devicePixelRatio
     gl.viewport( 0, 0, canvas.width, canvas.height );
